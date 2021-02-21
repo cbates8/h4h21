@@ -1,47 +1,117 @@
 import os
 import urllib.parse
-from flask import Flask, render_template, request, url_for
+import json
+import models
+from flask import Flask, render_template, request
+from flask.wrappers import Response
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
+#from sqlalchemy import create_engine, Table, Integer, String, Column
 from dotenv import load_dotenv
-
+#from models import User, Business
+from random import randint
 
 load_dotenv()
-KEY = os.getenv('SECRET_KEY')
-PARAMS = os.getenv('CONNECTION_PARAMS')
 
 #configure Database URI:
-params = urllib.parse.quote_plus(PARAMS)
+params = urllib.parse.quote_plus(
+    f"{os.getenv('DRIVER')}"
+    f"{os.getenv('SERVER')}"
+    f"{os.getenv('DATABASE')}"
+    f"{os.getenv('UID')}"
+    f"{os.getenv('PWD')}"
+    r'Encrypt=yes;'
+    r'TrustServerCertificate=no;'
+    r'Connection Timeout=30;'
+)
+    
 conn_str = f'mssql+pyodbc:///?odbc_connect={params}'
-engine_azure = create_engine(conn_str, echo=True)
 
 
 #initialization
-app = Flask(__name__, static_folder = 'templates/static', static_url_path = '')
-app.config['SECRET_KEY'] = KEY
-#app.config['SQLALCHEMY_DATABASE_URI'] = "mssql+pyodbc:///?odbc_connect=%s" % params
-#app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = conn_str
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-id_var = 0
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
-@app.route("/login", methods=["POST", "GET"])
+@app.route("/restaurant")
+def restaurants():
+    restaurants = models.Business.query.filter_by(busn_type="Restaurants").all()
+    output = {"Restaurants" : []}
+    for r in restaurants:
+        output["Restaurants"].append(
+            {
+                "Name" : r[0],
+                "Description" : r[2],
+                "Address" : r[3],
+            
+            }
+        )
+    response = Response(
+            mimetype="application/json",
+            response=json.dumps(output),
+            status=201
+    )
+    return response
+
+@app.route("/users/")
+def usr_search():
+
+    users = models.User.query.all()
+    print(type(users))
+    print(users[0].usr_id)
+    output = {
+        users[0].usr_id : users[0].usr_email,
+        users[1].usr_id : users[1].usr_email
+    }
+
+    response = Response(
+            mimetype="application/json",
+            response=json.dumps(output),
+            status=201
+    )
+        
+    return response
+
+
+
+@app.route("/login/", methods=["POST", "GET"])
 def login():
     if request.method == "POST":
-        global id_var
-        email = request.form["email"]
-        u = users(id_var, email)
-        id_var += 1
-        print(f'User {u.usr_email} added to database')
-        return render_template("index.html")
+        email = request.form['email']
+        user = models.User(
+            usr_id=randint(0, 10),
+            #usr_name=None,
+            usr_email=email,
+            #usr_pwd=None,
+        )
+        '''username = request.form['Username']
+        user = User.query.filter_by(username=username).first()
+        if(not user):
+            user = User(
+                #usr_id
+                usr_name=request.form['Username'],
+                usr_email
+            )'''
+        db.session.add(user)
+        db.session.commit()
+        print(f'User {user.usr_id}, {user.usr_email} added to database')
+        output = {'msg' : 'posted'}
+        response = Response(
+            mimetype="application/json",
+            response=json.dumps(output),
+            status=201
+        )
+        
+        return response
     return render_template("user.html")
 
 if __name__ == "__main__":
-    #db.drop_all()
+    if(os.getenv("DEBUG")):
+        db.drop_all()
     db.create_all()
     app.run()
