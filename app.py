@@ -1,4 +1,5 @@
 import os
+from typing import Text
 import urllib.parse
 import json
 import models
@@ -38,16 +39,17 @@ db = SQLAlchemy(app)
 def home():
     return render_template("index.html")
 
-@app.route("/restaurant")
+@app.route("/restaurants.html/")
 def restaurants():
-    restaurants = models.Business.query.filter_by(busn_type="Restaurants").all()
+    restaurants = models.Business.query.filter_by(busn_type="Restaurant").all()
     output = {"Restaurants" : []}
+    print(restaurants)
     for r in restaurants:
         output["Restaurants"].append(
             {
-                "Name" : r[0],
-                "Description" : r[2],
-                "Address" : r[3],
+                "Name" : r.busn_name,
+                "Description" : r.busn_des,
+                "Address" : r.busn_add,
             
             }
         )
@@ -56,6 +58,7 @@ def restaurants():
             response=json.dumps(output),
             status=201
     )
+    #return render_template("restaurants.html", message=output)
     return response
 
 @app.route("/users/")
@@ -76,8 +79,12 @@ def usr_search():
     )
         
     return response
-
-
+'''
+@app.route("/affiliate/")
+def affiliate():
+    if request.method == "POST":
+        username = request.form['username']
+        user = models.User.query.filter_by(usr_name=username). '''
 
 @app.route("/login/", methods=["POST", "GET"])
 def login():
