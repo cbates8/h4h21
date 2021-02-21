@@ -1,6 +1,6 @@
 import os
 import urllib.parse
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
@@ -17,7 +17,7 @@ engine_azure = create_engine(conn_str, echo=True)
 
 
 #initialization
-app = Flask(__name__)
+app = Flask(__name__, static_folder = 'templates/static', static_url_path = '')
 app.config['SECRET_KEY'] = KEY
 #app.config['SQLALCHEMY_DATABASE_URI'] = "mssql+pyodbc:///?odbc_connect=%s" % params
 #app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True

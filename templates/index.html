@@ -9,8 +9,8 @@
     <!-- import the webpage's stylesheet -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-    
-    <link rel="stylesheet" href="./style.css" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename = '/css/style.css') }}"/>
 
     <!-- import the webpage's javascript file -->
     <link
@@ -24,12 +24,12 @@
 
   <body>
     <div class = "menubar">
-        
+
 <!--       <a href = "#text" id = "home"> <h2> <u>Home </u></h2> </a> -->
-      
+
       <center> <div id = "title">  <h1> Bridging The Gap </h1> </div></center>
-      <div class = "dropdown"> 
-        <button  class="dropbtn"> <center> <h2> <u> Browse our database </u> </h2> </center> </button> 
+      <div class = "dropdown">
+        <button  class="dropbtn"> <center> <h2> <u> Browse our database </u> </h2> </center> </button>
         <div class="dropdown-content">
           <a href="Dindex.html">hello</a>
           <a href="#t2">HELLO</a>
@@ -37,15 +37,15 @@
           <a href="#t4">hElLo</a>
         </div>
       </div>
-      
-  
-      
+
+
+
      <a href = "#t" id = "letters"> <h2> <u>Become an affiliate</u> </h2></a>
-      
+
 <!--       <a href = "#t2" id = "other">   <center> <h2> <u>Our Vision</u> </h2> </center>  </a>
-      
+
       <a href = "#t3" id = "aboutUs"> <center> <h2> <u>Contact Us</u> </h2> </center> </a>
-      
+
       <a href = "#t4" id = "questions">  <center> <h2> <u>Our Team</u> </h2> </center>  </a>
        -->
      </div>
@@ -53,16 +53,16 @@
     <div id="text">
       <center>
 
-    <h1 id="words" class = "title anim-typewriter"> <br/> Add tagline here </h1> 
-    <!-- <p id = "summary"> <br/> As non-black people of color, we are speaking from a unique position of privilege. The ability to absolve oneself from feeling and being complicit in anti-black violence by asserting “I am not white” is certainly not a solution here. However, while the murder of Floyd occurred in Minneapolis, the racism intrinsic to the police system infiltrates even precincts in your district. Acts of police violence and brutality committed on innocent, unarmed black people are all too common and we need your support to help create a safer community one district at a time. 
+    <h1 id="words" class = "title anim-typewriter"> <br/> Add tagline here </h1>
+    <!-- <p id = "summary"> <br/> As non-black people of color, we are speaking from a unique position of privilege. The ability to absolve oneself from feeling and being complicit in anti-black violence by asserting “I am not white” is certainly not a solution here. However, while the murder of Floyd occurred in Minneapolis, the racism intrinsic to the police system infiltrates even precincts in your district. Acts of police violence and brutality committed on innocent, unarmed black people are all too common and we need your support to help create a safer community one district at a time.
     </p>-->
-        
+
       </center>
     </div>
-    
+
      <div id="t" >
        <h1 class ="ally">
-         About US 
+         About US
        </h1>
        <h2 class="ally2">
          Our mission
@@ -70,71 +70,71 @@
        <br><br><br>
        <p class = "summary"> As we live through unprecedented times, we believe that it is our duty to support the ones who have lost the most. As small businesses have lost revenue because of insufficient funding, we hope to provide a platform that biusinesses can promote their products and consumers can interact with them.</p><br><br>
        <p class = "summary">
-       We hope to provide a platform that not only helps build up small businesses and help them during these hard times, but also a place where the public can easily support these businesses.   
+       We hope to provide a platform that not only helps build up small businesses and help them during these hard times, but also a place where the public can easily support these businesses.
        </p>
-       
-        
 
-    </div> 
-  
+
+
+    </div>
+
     <div id="t2">
       <div id = "source1text"> <center> <h1 class="ally"> <br> Our Vision <br><br> </h1> </center> </div>
-      
-      <div id = "source1"> 
-        
+
+      <div id = "source1">
+
       <p class="summary">
-        We hope to streamline the process to promote your business and provide all the resources for buisiness to thrive in a digital world. 
+        We hope to streamline the process to promote your business and provide all the resources for buisiness to thrive in a digital world.
         </p>
       <br>
       <p class= "summary">
         This platform provides a tool... </p>
       <br><br><br>
-      
-      
+
+
        </div>
-    
+
     </div>
 
   <div id="t3">
-    
+
     <div id = "source2text"> <center> <h1 class="ally">  Contact Us <br><br> </h1> </center> </div>
-    <div id = "source2"> 
-      <center> 
+    <div id = "source2">
+      <center>
         <p class = "summary">
-          Here is our stuff: 
+          Here is our stuff:
     </p>
         <br>
         <p class = "summary">
           Please reach out to us if you have any suggestions to improve our work. Looking forward to working with you!
         </p>
-      </center> 
+      </center>
       <br>
        </div>
-    
+
   </div>
-     
+
   <div id="t4">
-    <div id = "source3text">  
-      <center> 
-        <h1 class="ally"><br><br>  Our Team <br><br> </h1> 
-      </center> 
+    <div id = "source3text">
+      <center>
+        <h1 class="ally"><br><br>  Our Team <br><br> </h1>
+      </center>
     </div>
-    
-    <div id = "source3">  
+
+    <div id = "source3">
       <p class="summary">
-      Our team  
+      Our team
       </p>
       <br>
       <p class= "summary">
         We hope that our website can help you on your journey to being more socially aware.
       </p>
       <br><br>
-      
+
     </div>
-    
+
 </div>
-  
-   
+
+
 
   </body>
   <script src="./script.js"> </script>
